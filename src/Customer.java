@@ -1,4 +1,17 @@
 public class Customer extends User{
 
-    private int intCustomerID;
+    public String getPlaceholder() {
+        return placeholder;
+    }
+
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "placeholder=" + placeholder + '}';
+    }
+
+    private String placeholder;
 }
