@@ -2,8 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class IST411View extends JFrame {
-    private JTextField txtFieldItemId, txtFieldOrderId;
-    private JButton btnGetItem, btnAddItem, btnGetOrder, btnCreateOrder;
+    private JTextField txtFieldItemId, txtFieldOrderId, txtFieldUserId;
+    private JButton btnGetItem, btnAddItem, btnGetOrder, btnCreateOrder, btnAddUser, btnGetUser;
     private JTextArea txtAreaDisplay;
 
     public IST411View() {
@@ -12,24 +12,30 @@ public class IST411View extends JFrame {
         getContentPane().setLayout(new BorderLayout(5, 5));
 
         JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(2, 1)); 
+        inputPanel.setLayout(new GridLayout(3, 1)); //increment first number of gridlayout parameters when you want to add a new row to the UI
 
         JPanel itemPanel = new JPanel(new FlowLayout()); 
         JPanel orderPanel = new JPanel(new FlowLayout());
+        JPanel userPanel = new JPanel (new FlowLayout());
         
         //initialize main components
         txtFieldItemId = new JTextField(10);
         txtFieldOrderId = new JTextField(10);
+        txtFieldUserId = new JTextField(10);
         btnGetItem = new JButton("Get Item");
         btnAddItem = new JButton("Add New Item");
         btnGetOrder = new JButton("Get Order");
         btnCreateOrder = new JButton("Create New Order");
+        btnAddUser = new JButton("Add New User");
+        btnGetUser = new JButton("Get User");
         
         //initialize action listeners
         btnGetItem.addActionListener(e -> getItem());
         btnAddItem.addActionListener(e -> openAddItemDialog());
         btnGetOrder.addActionListener(e -> getOrder());
         btnCreateOrder.addActionListener(e -> openCreateOrderDialog());
+        btnAddUser.addActionListener (e -> createUser());
+        btnGetUser.addActionListener(e -> getUser());
 
         //add item controls
         itemPanel.add(new JLabel("Item ID:"));
@@ -42,10 +48,18 @@ public class IST411View extends JFrame {
         orderPanel.add(txtFieldOrderId);
         orderPanel.add(btnGetOrder);
         orderPanel.add(btnCreateOrder);
-
+        
+        //add user controls
+        userPanel.add(new JLabel("User ID:"));
+        userPanel.add(txtFieldUserId);
+        userPanel.add(btnGetUser);
+        userPanel.add(btnAddUser);
+        
+        
         //add subpanels to the main input panel
         inputPanel.add(itemPanel);
         inputPanel.add(orderPanel);
+        inputPanel.add(userPanel);
 
         //text area for outputs
         txtAreaDisplay = new JTextArea(5, 20);
@@ -99,4 +113,12 @@ public class IST411View extends JFrame {
      CreateOrderDialog addOrderDialog = new CreateOrderDialog(this);
      addOrderDialog.setVisible(true);
  }
+
+    private void createUser() {
+        //open a new dialog window like AddItemDialog or CreateOrderDialog and get inputs for all user attributes
+    }
+
+    private void getUser() {
+        //copy code from other get methods. pull user Id from text field, do basic form validation, etc.
+    }
 }
