@@ -5,39 +5,45 @@
 
 /**
  *
- * @author awl5472
+ * @author awl5472, alder
  */
 public class Supplier {
-    private int intSupplierID;
-    private String strSupplierName;
-    private int intContactNum;
+    private final int supplierID;
+    private String supplierName;
+    private String contactNumber;
+
+    public Supplier(int supplierID, String supplierName, String contactNumber) {
+        this.supplierID = supplierID;
+        this.supplierName = supplierName;
+        this.contactNumber = contactNumber;
+    }
 
     @Override
     public String toString() {
-        return "Supplier{" + "intSupplierID=" + intSupplierID + ", strSupplierName=" + strSupplierName + ", intContactNum=" + intContactNum + '}';
+        return "Supplier{" +
+                "supplierID=" + supplierID +
+                ", supplierName='" + supplierName + '\'' +
+                ", contactNumber='" + contactNumber + '\'' +
+                '}';
     }
 
-    public int getIntSupplierID() {
-        return intSupplierID;
+    public int getSupplierID() {
+        return supplierID;
     }
 
-    public void setIntSupplierID(int intSupplierID) {
-        this.intSupplierID = intSupplierID;
+    public String getSupplierName() {
+        return supplierName;
     }
 
-    public String getStrSupplierName() {
-        return strSupplierName;
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 
-    public void setStrSupplierName(String strSupplierName) {
-        this.strSupplierName = strSupplierName;
+    public String getContactNumber() {
+        return contactNumber;
     }
 
-    public int getIntContactNum() {
-        return intContactNum;
-    }
-
-    public void setIntContactNum(int intContactNum) {
-        this.intContactNum = intContactNum;
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
     }
 }
