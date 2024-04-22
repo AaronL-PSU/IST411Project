@@ -1,10 +1,10 @@
 public abstract class User {
 
-    private final int id;
-    private String firstName;
-    private String lastName;
-    private String username;
-    private String password;
+    protected final int id;
+    protected String firstName;
+    protected String lastName;
+    protected String username;
+    protected String password;
 
     public User(int id, String firstName, String lastName, String username, String password) {
         this.id = id;
