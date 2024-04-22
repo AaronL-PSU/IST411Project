@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class IST411View extends JFrame {
     private JTextField txtFieldItemId, txtFieldOrderId, txtFieldUserId;
-    private JButton btnGetItem, btnAddItem, btnGetOrder, btnCreateOrder, btnAddUser, btnGetUser;
+    private JButton btnGetItem, btnAddItem, btnGetOrder, btnCreateOrder, btnAddUser, btnGetUser, btnInputAddress;
     private JTextArea txtAreaDisplay;
 
     public IST411View() {
@@ -28,6 +28,7 @@ public class IST411View extends JFrame {
         btnCreateOrder = new JButton("Create New Order");
         btnAddUser = new JButton("Add New User");
         btnGetUser = new JButton("Get User");
+        btnInputAddress = new JButton("Input Address");
         
         //initialize action listeners
         btnGetItem.addActionListener(e -> getItem());
@@ -36,6 +37,7 @@ public class IST411View extends JFrame {
         btnCreateOrder.addActionListener(e -> openCreateOrderDialog());
         btnAddUser.addActionListener (e -> createUser());
         btnGetUser.addActionListener(e -> getUser());
+        btnInputAddress.addActionListener(e -> openAddressInputDialog());
 
         //add item controls
         itemPanel.add(new JLabel("Item ID:"));
@@ -54,7 +56,11 @@ public class IST411View extends JFrame {
         userPanel.add(txtFieldUserId);
         userPanel.add(btnGetUser);
         userPanel.add(btnAddUser);
-        
+        userPanel.add(new JLabel("User ID:"));
+        userPanel.add(txtFieldUserId);
+        userPanel.add(btnGetUser);
+        userPanel.add(btnAddUser);
+        userPanel.add(btnInputAddress);
         
         //add subpanels to the main input panel
         inputPanel.add(itemPanel);
@@ -122,8 +128,9 @@ public class IST411View extends JFrame {
         //copy code from other get methods. pull user Id from text field, do basic form validation, etc.
    }
 
-    private void openAddressInputDialog() {
-        AddressInputDialog addressInputDialog = new AddressInputDialog(this);
-        addressInputDialog.setVisible(true);
+  private void openAddressInputDialog() {
+        SwingUtilities.invokeLater(() -> {
+            AddressInputDialog.createAndShowGUI();
+        });
     }
 }
