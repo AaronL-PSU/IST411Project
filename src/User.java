@@ -1,57 +1,64 @@
 public abstract class User {
 
-    private int intID;
-    
-    private String strFirstName;
+    private final int id;
+    private String firstName;
+    private String lastName;
+    private String username;
+    private String password;
 
-    private String strLastName;
-    
-    private String strUsername;
-    
-    private String strPassword;
+    public User(int id, String firstName, String lastName, String username, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+    }
 
-    public int getIntID() {
-        return intID;
+    public int getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        // Add password hashing logic here
+        this.password = password;
     }
 
     @Override
     public String toString() {
-        return "User{" + "intID=" + intID + ", strFirstName=" + strFirstName + ", strLastName=" + strLastName + ", strUsername=" + strUsername + ", strPassword=" + strPassword + '}';
-    }
-
-    public void setIntID(int intID) {
-        this.intID = intID;
-    }
-
-    public String getStrFirstName() {
-        return strFirstName;
-    }
-
-    public void setStrFirstName(String strFirstName) {
-        this.strFirstName = strFirstName;
-    }
-
-    public String getStrLastName() {
-        return strLastName;
-    }
-
-    public void setStrLastName(String strLastName) {
-        this.strLastName = strLastName;
-    }
-
-    public String getStrUsername() {
-        return strUsername;
-    }
-
-    public void setStrUsername(String strUsername) {
-        this.strUsername = strUsername;
-    }
-
-    public String getStrPassword() {
-        return strPassword;
-    }
-
-    public void setStrPassword(String strPassword) {
-        this.strPassword = strPassword;
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
