@@ -120,5 +120,72 @@ public class IST411View extends JFrame {
 
     private void getUser() {
         //copy code from other get methods. pull user Id from text field, do basic form validation, etc.
+     }
+
+    private void openAddressInputDialog() {
+        JDialog dialog = new JDialog(this, "Address Input Dialog", true);
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+        JPanel panel = new JPanel(new GridLayout(7, 2));
+
+        JLabel idLabel = new JLabel("ID:");
+        JTextField idField = new JTextField(10);
+
+        JLabel streetLabel = new JLabel("Street:");
+        JTextField streetField = new JTextField(30);
+
+        JLabel zipLabel = new JLabel("Zip Code:");
+        JTextField zipField = new JTextField(10);
+
+        JLabel cityLabel = new JLabel("City:");
+        JTextField cityField = new JTextField(20);
+
+        JLabel stateLabel = new JLabel("State:");
+        JTextField stateField = new JTextField(10);
+
+        JLabel countryLabel = new JLabel("Country:");
+        JTextField countryField = new JTextField(20);
+
+        JButton submitButton = new JButton("Submit");
+
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Address address = new Address();
+                    address.setIntID(Integer.parseInt(idField.getText()));
+                    address.setStrStreet(streetField.getText());
+                    address.setIntZip(Integer.parseInt(zipField.getText()));
+                    address.setStrCity(cityField.getText());
+                    address.setStrState(stateField.getText());
+                    address.setStrCountry(countryField.getText());
+
+                    submitAddressToDatabase(address);
+                    System.out.println("Address data submitted successfully!");
+                    dialog.dispose();
+                } catch (NumberFormatException | SQLException ex) {
+                    System.out.println("Error submitting address data: " + ex.getMessage());
+                }
+            }
+        });
+
+        panel.add(idLabel);
+        panel.add(idField);
+        panel.add(streetLabel);
+        panel.add(streetField);
+        panel.add(zipLabel);
+        panel.add(zipField);
+        panel.add(cityLabel);
+        panel.add(cityField);
+        panel.add(stateLabel);
+        panel.add(stateField);
+        panel.add(countryLabel);
+        panel.add(countryField);
+        panel.add(submitButton);
+
+        dialog.add(panel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }
-}
+
