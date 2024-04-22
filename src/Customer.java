@@ -1,4 +1,6 @@
-public class Customer extends User{
+public class Customer extends User {
+
+    private String placeholder;
 
     public String getPlaceholder() {
         return placeholder;
@@ -10,8 +12,14 @@ public class Customer extends User{
 
     @Override
     public String toString() {
-        return "Customer{" + "placeholder=" + placeholder + '}';
+        // Utilize the inherited fields from the User class in the toString method
+        return "Customer{" +
+                "intID=" + getIntID() +
+                ", strFirstName='" + getStrFirstName() + '\'' +
+                ", strLastName='" + getStrLastName() + '\'' +
+                ", strUsername='" + getStrUsername() + '\'' +
+                ", strPassword='" + getStrPassword() + '\'' +
+                ", placeholder='" + placeholder + '\'' +
+                '}';
     }
-
-    private String placeholder;
 }
