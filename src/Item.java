@@ -1,18 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
-/**
- *
- * @author awl5472
- */
 public class Item {
     private int intID;
     private String strItemName;
     private int intQty;
     private int intPrice;
     private int intReorderQty;
+    
+    public Item(int intID, String strItemName, int intQty, int intPrice, int intReorderQty) {
+        this.intID = intID;
+        this.strItemName = strItemName;
+        this.intQty = intQty;
+        this.intPrice = intPrice;
+        this.intReorderQty = intReorderQty;
+    }
 
     @Override
     public String toString() {
@@ -58,4 +58,11 @@ public class Item {
     public void setIntReorderQty(int intReorderQty) {
         this.intReorderQty = intReorderQty;
     }
+    public boolean saveItem(){
+        return true; //JDBC SQL connection goes here.
+    }
+     public static Item getItem(int id) {
+         Item item = null;
+         return item; //JDBC SQL connection goes here.
+     }
 }

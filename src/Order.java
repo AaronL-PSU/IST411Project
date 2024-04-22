@@ -1,19 +1,16 @@
 
 import java.util.List;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author awl5472
- */
 public class Order {
     private int intOrderID;
     private List<Item> listItems;
     private int intCustomerID;
+    
+      public Order(int intOrderID, List<Item> listItems, int intCustomerID) {
+      this.intOrderID = intOrderID;
+      this.listItems = listItems;
+      this.intCustomerID = intCustomerID;
+      }
 
     @Override
     public String toString() {
@@ -42,5 +39,13 @@ public class Order {
 
     public void setIntCustomerID(int intCustomerID) {
         this.intCustomerID = intCustomerID;
+    }
+    
+    public boolean createOrder(){
+        return true; //JDBC SQL connection goes here
+    }
+    public static Order getOrder(int id){
+        Order order = null; //JDBC SQL connection goes here
+        return order;
     }
 }
