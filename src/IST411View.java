@@ -56,10 +56,6 @@ public class IST411View extends JFrame {
         userPanel.add(txtFieldUserId);
         userPanel.add(btnGetUser);
         userPanel.add(btnAddUser);
-        userPanel.add(new JLabel("User ID:"));
-        userPanel.add(txtFieldUserId);
-        userPanel.add(btnGetUser);
-        userPanel.add(btnAddUser);
         userPanel.add(btnInputAddress);
         
         //add subpanels to the main input panel
