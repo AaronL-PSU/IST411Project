@@ -23,7 +23,7 @@ public class AddressInputDialog {
         SwingUtilities.invokeLater(() -> createAndShowGUI());
     }
 
-    private static void createAndShowGUI() {
+    static void createAndShowGUI() {
         JFrame frame = new JFrame("Address Input App");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
