@@ -1,106 +1,71 @@
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+public class AddressInputDialog extends JDialog {
+    private JTextField streetField;
+    private JTextField zipField;
+    private JTextField cityField;
+    private JTextField stateField;
+    private JTextField countryField;
+    private JButton submitButton;
+    private Address address;
 
-public class AddressInputDialog {
-
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/mydatabase";
-    private static final String DB_USER = "username";
-    private static final String DB_PASSWORD = "password";
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> createAndShowGUI());
+    public AddressInputDialog(Frame parent) {
+        super(parent, "Address Input", true);
+        initializeUI();
+        pack();
+        setLocationRelativeTo(parent);
     }
 
-    static void createAndShowGUI() {
-        JFrame frame = new JFrame("Address Input App");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private void initializeUI() {
+        setLayout(new GridLayout(7, 2));
 
-        JPanel panel = new JPanel(new GridLayout(7, 2));
+        streetField = new JTextField(30);
+        zipField = new JTextField(10);
+        cityField = new JTextField(20);
+        stateField = new JTextField(10);
+        countryField = new JTextField(20);
 
-        JLabel idLabel = new JLabel("ID:");
-        JTextField idField = new JTextField(10);
-
-        JLabel streetLabel = new JLabel("Street:");
-        JTextField streetField = new JTextField(30);
-
-        JLabel zipLabel = new JLabel("Zip Code:");
-        JTextField zipField = new JTextField(10);
-
-        JLabel cityLabel = new JLabel("City:");
-        JTextField cityField = new JTextField(20);
-
-        JLabel stateLabel = new JLabel("State:");
-        JTextField stateField = new JTextField(10);
-
-        JLabel countryLabel = new JLabel("Country:");
-        JTextField countryField = new JTextField(20);
-
-        JButton submitButton = new JButton("Submit");
-
-        submitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    Address address = new Address();
-                    address.setIntID(Integer.parseInt(idField.getText()));
-                    address.setStrStreet(streetField.getText());
-                    address.setIntZip(Integer.parseInt(zipField.getText()));
-                    address.setStrCity(cityField.getText());
-                    address.setStrState(stateField.getText());
-                    address.setStrCountry(countryField.getText());
-
-                    submitAddressToDatabase(address);
-                    System.out.println("Address data submitted successfully!");
-                } catch (NumberFormatException | SQLException ex) {
-                    System.out.println("Error submitting address data: " + ex.getMessage());
-                }
-            }
-        });
-
-        panel.add(idLabel);
-        panel.add(idField);
-        panel.add(streetLabel);
-        panel.add(streetField);
-        panel.add(zipLabel);
-        panel.add(zipField);
-        panel.add(cityLabel);
-        panel.add(cityField);
-        panel.add(stateLabel);
-        panel.add(stateField);
-        panel.add(countryLabel);
-        panel.add(countryField);
-        panel.add(submitButton);
-
-        frame.add(panel);
-        frame.pack();
-        frame.setVisible(true);
+        add(new JLabel("Street:"));
+        add(streetField);
+        add(new JLabel("Zip Code:"));
+        add(zipField);
+        add(new JLabel("City:"));
+        add(cityField);
+        add(new JLabel("State:"));
+        add(stateField);
+        add(new JLabel("Country:"));
+        add(countryField);
+        add(new JLabel ());//placeholder so the button goes to the right side
+        
+        submitButton = new JButton("Submit");
+        submitButton.addActionListener(e -> submitAddress());
+        add(submitButton);
     }
 
-    private static void submitAddressToDatabase(Address address) throws SQLException {
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String sql = "INSERT INTO addresses (id, street, zip, city, state, country) VALUES (?, ?, ?, ?, ?, ?)";
-            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                pstmt.setInt(1, address.getIntID());
-                pstmt.setString(2, address.getStrStreet());
-                pstmt.setInt(3, address.getIntZip());
-                pstmt.setString(4, address.getStrCity());
-                pstmt.setString(5, address.getStrState());
-                pstmt.setString(6, address.getStrCountry());
-
-                pstmt.executeUpdate();
-            }
+    private void submitAddress() {
+    try {
+        address = new Address();
+        address.setStrStreet(streetField.getText());
+        address.setIntZip(Integer.parseInt(zipField.getText()));
+        address.setStrCity(cityField.getText());
+        address.setStrState(stateField.getText());
+        address.setStrCountry(countryField.getText());
+        
+        String message = "Address added successfully!\nID: " + address.getIntID() + "\nStreet: " + address.getStrStreet() +
+                         "\nZip Code: " + address.getIntZip() + "\nCity: " + address.getStrCity() + "\nState: " +
+                         address.getStrState() + "\nCountry: " + address.getStrCountry();
+        JOptionPane.showMessageDialog(this, message, "Success", JOptionPane.INFORMATION_MESSAGE);
+        
+        dispose();
+        } catch (NumberFormatException ex) {
+            //catch invalid input
+            JOptionPane.showMessageDialog(this, "Invalid input in fields, please check the data.", "Input Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public Address getAddress() {
+        return address;
     }
 }

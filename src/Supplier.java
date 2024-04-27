@@ -46,4 +46,11 @@ public class Supplier {
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
+    public boolean saveSupplier(){
+        return true; //TODO: JDBC SQL connection goes here.
+    }
+    public static Supplier getSupplier(int id) {
+         Supplier supplier = null;
+         return supplier; //TODO: JDBC SQL connection goes here.
+     }
 }

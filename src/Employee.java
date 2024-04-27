@@ -1,8 +1,14 @@
 public class Employee extends User {
-
     private int employeeID;
-    private String position;
+    private Role role; 
     private double salary;
+
+    public Employee(int intID, String strFirstName, String strLastName, String strUsername, String strPassword, Address address, Email email, int employeeID, Role role, double salary) {
+        super(intID, strFirstName, strLastName, strUsername, strPassword, address, email);
+        this.employeeID = employeeID;
+        this.role = role;
+        this.salary = salary;
+    }
 
     public int getEmployeeID() {
         return employeeID;
@@ -12,12 +18,12 @@ public class Employee extends User {
         this.employeeID = employeeID;
     }
 
-    public String getPosition() {
-        return position;
+    public Role getRole() {
+        return role;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public double getSalary() {
@@ -32,13 +38,15 @@ public class Employee extends User {
     public String toString() {
         return "Employee{" +
                 "employeeID=" + employeeID +
-                ", position='" + position + '\'' +
+                ", role=" + role +
                 ", salary=" + salary +
                 ", intID=" + getIntID() +
                 ", strFirstName='" + getStrFirstName() + '\'' +
                 ", strLastName='" + getStrLastName() + '\'' +
                 ", strUsername='" + getStrUsername() + '\'' +
                 ", strPassword='" + getStrPassword() + '\'' +
+                ", address=" + getAddress().toString() +
+                ", email=" + getEmail().toString() +
                 '}';
     }
 }

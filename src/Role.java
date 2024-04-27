@@ -1,17 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author awl5472
- */
 public class Role {
+
+    private int intID;         
+    private String strShortName; 
+    private String strLongName; 
+
+    public Role(int intID, String strShortName, String strLongName) {
+        this.intID = intID;
+        this.strShortName = strShortName;
+        this.strLongName = strLongName;
+    }
 
     @Override
     public String toString() {
-        return "Role{" + "intID=" + intID + ", strShortName=" + strShortName + ", strLongName=" + strLongName + '}';
+        return "Role{" +
+               "intID=" + intID +
+               ", strShortName='" + strShortName + '\'' +
+               ", strLongName='" + strLongName + '\'' +
+               '}';
     }
 
     public int getIntID() {
@@ -37,7 +42,4 @@ public class Role {
     public void setStrLongName(String strLongName) {
         this.strLongName = strLongName;
     }
-    private int intID;
-    private String strShortName;
-    private String strLongName;
 }

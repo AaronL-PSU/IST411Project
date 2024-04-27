@@ -1,25 +1,20 @@
 public class Customer extends User {
+    private String customerCardNumber; //store brand credit card, like a Target red card or something
 
-    private String placeholder;
-
-    public String getPlaceholder() {
-        return placeholder;
+    public Customer(int intID, String strFirstName, String strLastName, String strUsername, String strPassword, Address address, Email email, String customerCardNumber) {
+        super(intID, strFirstName, strLastName, strUsername, strPassword, address, email);
+        this.customerCardNumber = customerCardNumber;
     }
 
-    public void setPlaceholder(String placeholder) {
-        this.placeholder = placeholder;
+    public String getCustomerCardNumber() {
+        return customerCardNumber;
     }
 
-    @Override
-    public String toString() {
-        // Utilize the inherited fields from the User class in the toString method
-        return "Customer{" +
-                "intID=" + getIntID() +
-                ", strFirstName='" + getStrFirstName() + '\'' +
-                ", strLastName='" + getStrLastName() + '\'' +
-                ", strUsername='" + getStrUsername() + '\'' +
-                ", strPassword='" + getStrPassword() + '\'' +
-                ", placeholder='" + placeholder + '\'' +
-                '}';
+    public void setCustomerCardNumber(String customerCardNumber) {
+        this.customerCardNumber = customerCardNumber;
+    }
+
+    public void setAddress(Address address) {
+        super.setAddress(address);
     }
 }

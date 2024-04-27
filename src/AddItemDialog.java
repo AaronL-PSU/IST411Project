@@ -59,7 +59,12 @@ public class AddItemDialog extends JDialog {
             Item newItem = new Item(id, name, qty, price, reorderQty);
 
             if (newItem.saveItem()) {
-                JOptionPane.showMessageDialog(this, "Item saved successfully!");
+                JOptionPane.showMessageDialog(this, "Item saved successfully!\n" +
+                                                   "Item ID: " + id + "\n" +
+                                                   "Item Name: " + name + "\n" +
+                                                   "Quantity: " + qty + "\n" +
+                                                   "Price: " + price + "\n" +
+                                                   "Reorder Quantity: " + reorderQty);
                 dispose(); 
             } else {
                 JOptionPane.showMessageDialog(this, "Failed to save item.", "Error", JOptionPane.ERROR_MESSAGE);

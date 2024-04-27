@@ -59,10 +59,10 @@ public class Item {
         this.intReorderQty = intReorderQty;
     }
     public boolean saveItem(){
-        return true; //JDBC SQL connection goes here.
+        return true; //TODO: JDBC SQL connection goes here.
     }
      public static Item getItem(int id) {
          Item item = null;
-         return item; //JDBC SQL connection goes here.
+         return item; //TODO: JDBC SQL connection goes here.
      }
 }
