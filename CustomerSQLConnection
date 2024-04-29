@@ -1,0 +1,33 @@
+// this is the required code needed to add and remove customers. Could someone please update the SQL server connection information?
+
+import java.beans.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+    public class CustomerSQLInfo {
+    protected static final String URL = ""; // update
+    protected static final String USERNAME = ""; // update
+    protected static final String PASSWORD = ""; // update
+
+    public void addCustomer(Customer customer) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            Statement statement = (Statement) conn.createStatement();
+            String sql = "INSERT INTO customers VALUES (" + customer.getID() + ", '" + customer.getFirstName() + "', '" + customer.getLastName() + "', '" + customer.getUsername() + "', '" + customer.getPassword() + "', '" + customer.getAddress().toString() + "', '" + customer.getEmail().toString() + "', '" + customer.getCustomerCardNumber() + "')";
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void removeCustomer(int customerID) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            String sql = "DELETE FROM customers WHERE id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, customerID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
