@@ -1,0 +1,31 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class EmployeeSQLInfo {
+    protected static final String URL = ""; // update
+    protected static final String USERNAME = ""; // update
+    protected static final String PASSWORD = ""; // update
+
+    public void addEmployee(Employee employee) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            Statement statement = (Statement) conn.createStatement();
+            String sql = "INSERT INTO employees VALUES (" + employee.getIntID() + ", '" + employee.getStrFirstName() + "', '" + employee.getStrLastName() + "', '" + employee.getStrUsername() + "', '" + employee.getStrPassword() + "', " + employee.getAddress().getIntID() + ", " + employee.getEmail().getIntID() + ", " + employee.getEmployeeID() + ", '" + employee.getRole() + "', " + employee.getSalary() + ")";
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeEmployee(int employeeID) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            String sql = "DELETE FROM employees WHERE employeeID = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, employeeID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
