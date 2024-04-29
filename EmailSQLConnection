@@ -1,0 +1,31 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class EmailSQLInfo {
+    protected static final String URL = ""; // update
+    protected static final String USERNAME = ""; // update
+    protected static final String PASSWORD = ""; // update
+
+    public void addEmail(Email email) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            Statement statement = (Statement) conn.createStatement();
+            String sql = "INSERT INTO emails VALUES (" + email.getIntID() + ", '" + email.getAddress() + "')";
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeEmail(int emailID) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            String sql = "DELETE FROM emails WHERE intID = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, emailID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

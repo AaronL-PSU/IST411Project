@@ -1,0 +1,56 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class ItemSQLInfo {
+    protected static final String URL = ""; // update
+    protected static final String USERNAME = ""; // update
+    protected static final String PASSWORD = ""; // update
+
+    public boolean addItem(Item item) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            Statement statement = (Statement) conn.createStatement();
+            String sql = "INSERT INTO items VALUES (" + item.getIntID() + ", '" + item.getStrItemName() + "', " + item.getIntQty() + ", " + item.getIntPrice() + ", " + item.getIntReorderQty() + ")";
+            int rowsInserted = statement.executeUpdate(sql);
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Item getItem(int id) {
+        Item item = null;
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            String sql = "SELECT * FROM items WHERE intID = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int intID = resultSet.getInt("intID");
+                String strItemName = resultSet.getString("strItemName");
+                int intQty = resultSet.getInt("intQty");
+                int intPrice = resultSet.getInt("intPrice");
+                int intReorderQty = resultSet.getInt("intReorderQty");
+                item = new Item(intID, strItemName, intQty, intPrice, intReorderQty);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return item;
+    }
+
+    public boolean removeItem(int itemID) {
+      try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+          Statement statement = (Statement) conn.createStatement();
+          String sql = "DELETE FROM items WHERE intID = " + itemID;
+          int rowsDeleted = statement.executeUpdate(sql);
+          return rowsDeleted > 0;
+      } catch (SQLException e) {
+          e.printStackTrace();
+          return false;
+      }
+  }
+}

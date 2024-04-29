@@ -1,0 +1,36 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class UserSQLInfo {
+    protected static final String URL = ""; // update
+    protected static final String USERNAME = ""; // update
+    protected static final String PASSWORD = ""; // update
+
+    public boolean addUser(User user) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            Statement statement = (Statement) conn.createStatement();
+            String sql = "INSERT INTO users VALUES (" + user.getIntID() + ", '" + user.getStrFirstName() + "', '" + user.getStrLastName() + "', '" + user.getStrUsername() + "', '" + user.getStrPassword() + "', " + user.getAddress().getIntID() + ", " + user.getEmail().getIntID() + ")";
+            int rowsInserted = statement.executeUpdate(sql);
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean removeUser(int userID) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            String sql = "DELETE FROM users WHERE intID = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, userID);
+            int rowsDeleted = statement.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+}

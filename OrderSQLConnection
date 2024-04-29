@@ -1,0 +1,77 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+public class OrderSQLInfo {
+    protected static final String URL = ""; // update
+    protected static final String USERNAME = ""; // update
+    protected static final String PASSWORD = ""; // update
+
+    public boolean addOrder(Order order) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            // Insert the order details into the orders table
+            String orderSql = "INSERT INTO orders (intOrderID, intCustomerID, orderStatus) VALUES (?, ?, ?)";
+            PreparedStatement orderStatement = conn.prepareStatement(orderSql);
+            orderStatement.setInt(1, order.getIntOrderID());
+            orderStatement.setInt(2, order.getIntCustomerID());
+            orderStatement.setString(3, order.getOrderStatus());
+            orderStatement.executeUpdate();
+            
+            // Insert the items of the order into the order_items table
+            String orderItemSql = "INSERT INTO order_items (intOrderID, intItemID) VALUES (?, ?)";
+            PreparedStatement orderItemStatement = conn.prepareStatement(orderItemSql);
+            for (Item item : order.getListItems()) {
+                orderItemStatement.setInt(1, order.getIntOrderID());
+                orderItemStatement.setInt(2, item.getIntID());
+                orderItemStatement.addBatch();
+            }
+            orderItemStatement.executeBatch();
+            
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean removeOrder(int orderID) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            String orderItemSql = "DELETE FROM order_items WHERE intOrderID = ?";
+            PreparedStatement orderItemStatement = conn.prepareStatement(orderItemSql);
+            orderItemStatement.setInt(1, orderID);
+            orderItemStatement.executeUpdate();
+            
+            String orderSql = "DELETE FROM orders WHERE intOrderID = ?";
+            PreparedStatement orderStatement = conn.prepareStatement(orderSql);
+            orderStatement.setInt(1, orderID);
+            int rowsDeleted = orderStatement.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public Order getOrder(int id) {
+        Order order = null;
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            String sql = "SELECT * FROM orders WHERE intOrderID = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int intOrderID = resultSet.getInt("intOrderID");
+                int intCustomerID = resultSet.getInt("intCustomerID");
+                String orderStatus = resultSet.getString("orderStatus");
+                // Get the list of items for the order
+                List<Item> items = getItemsForOrder(conn, intOrderID);
+                order = new Order(intOrderID, items, intCustomerID, orderStatus);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return order;
+    }
