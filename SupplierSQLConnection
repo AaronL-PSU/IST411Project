@@ -1,0 +1,36 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class SupplierSQLInfo {
+    protected static final String URL = ""; // update
+    protected static final String USERNAME = ""; // update
+    protected static final String PASSWORD = ""; // update
+
+    public boolean addSupplier(Supplier supplier) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            Statement statement = (Statement) conn.createStatement();
+            String sql = "INSERT INTO suppliers VALUES (" + supplier.getSupplierID() + ", '" + supplier.getSupplierName() + "', '" + supplier.getContactNumber() + "')";
+            int rowsInserted = statement.executeUpdate(sql);
+            return rowsInserted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean removeSupplier(int supplierID) {
+        try (Connection conn = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+            String sql = "DELETE FROM suppliers WHERE supplierID = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, supplierID);
+            int rowsDeleted = statement.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+}
