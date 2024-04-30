@@ -6,9 +6,10 @@ public abstract class User {
     private String strUsername;
     private String strPassword;
     private Address address; //using address and email classes
-    private Email email;      
+    private Email email; 
+    private String phoneNumber;
 
-    public User(int intID, String strFirstName, String strLastName, String strUsername, String strPassword, Address address, Email email) {
+    public User(int intID, String strFirstName, String strLastName, String strUsername, String strPassword, Address address, Email email, String phoneNumber) {
         this.intID = intID;
         this.strFirstName = strFirstName;
         this.strLastName = strLastName;
@@ -16,6 +17,7 @@ public abstract class User {
         this.strPassword = strPassword;
         this.address = address;
         this.email = email;
+        this.phoneNumber = phone number;
     }
     //getters and setters for everything
     
@@ -79,6 +81,14 @@ public abstract class User {
     public void setStrPassword(String strPassword) {
         this.strPassword = strPassword;
     }
+
+    public void getPhoneNumber(String phoneNumber) {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber() {
+        this.phoneNumber = phoneNumber;
+    
     //tostring
     @Override
     public String toString() {
@@ -89,7 +99,8 @@ public abstract class User {
                ", strUsername='" + strUsername + '\'' +
                ", strPassword='" + strPassword + '\'' +
                ", address=" + address +
-               ", email=" + email +
+               ", email=" + email + '\'' +
+                ", phoneNumber=" + phoneNumber +
                '}';
     }
 }
